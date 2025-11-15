@@ -1,0 +1,6 @@
+[
+  {"command": "kitty", "workspace": 1, "monitor": "DP-1"},
+  {"command": "firefox", "workspace": 4, "monitor": "DP-1"},
+  {"command": "chromium", "workspace": 4, "monitor": "HDMI-A-1"},
+  {"command": "brave", "workspace": 6, "monitor": "HDMI-A-1"}
+]

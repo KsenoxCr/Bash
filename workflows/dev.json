@@ -1,0 +1,12 @@
+{
+  "windows":
+  [
+    {"command": "kitty", "args": "nvim ~/programming", "workspace": 2},
+    {"command": "kitty", "args": "~/bash_scripts/open_todays_diary.sh", "workspace": 2},
+    {"command": "firefox", "args": "https://www.claude.ai https://deepseek.com https://chatgpt.com", "workspace": 4},
+    {"command": "brave", "args": "", "workspace": 6}
+  ],
+  "current": [
+    {"command": "nvim", "args": "~/programming"}
+  ]
+}

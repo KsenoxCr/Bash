@@ -1,0 +1,10 @@
+{
+  "windows":
+  [
+    {"command": "kitty", "args": "nvim ~/Gods_Plan/Brain_Ram.md", "workspace": 2},
+    {"command": "kitty", "args": "~/bash_scripts/open_todays_diary.sh", "workspace": 2}
+  ],
+  "current": [
+    {"command": "nvim", "args": ""}
+  ]
+}
