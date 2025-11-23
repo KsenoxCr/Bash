@@ -77,7 +77,7 @@ create_system_backup() {
 
   root_dev_path=$(lsblk -J -o NAME,MOUNTPOINT | jq -r '.blockdevices[] | .children?[] | select(.mountpoint=="/") | .name' 2> /dev/null)
 
-  dd if="/dev/${root_dev_path}" of="$backup_file" bs=4M status=progress 2>&1
+  sudo dd if="/dev/${root_dev_path}" of="$backup_file" bs=4M status=progress 2>&1
 
   if [[ $? -eq 0 ]]; then
     echo "Backup completed successfully: $backup_file"
