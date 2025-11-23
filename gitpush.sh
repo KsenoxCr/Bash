@@ -1,9 +1,19 @@
 #!/bin/bash
 
+# timeout 10 git ls-remote --exit-code origin HEAD >/dev/null 2>&1
+
+if [[ $? -ne 0 ]]; then
+  echo "Error: Cannot reach remote repository. Exiting." >&2
+  exit 1
+fi
+
 repo_paths=(
   # "$HOME/scripting/bash"
   "$HOME/gods_plan"
   "$HOME/templates"
+  "$HOME/.dotfiles"
+  "$HOME/.config/nvim"
+  "$HOME/ai_prompt_library"
 )
 
 commit_msg="${1:-Auto-commit $(date +%Y-%m-%d_%H:%M:%S)}"
@@ -12,9 +22,9 @@ for repo in "${repo_paths[@]}"; do
   if [[ -d "$repo/.git" ]]; then
     echo "Processing: $repo"
     cd "$repo" || continue
-    
+
     git add -A
-    
+ 
     if git diff --cached --quiet; then
       echo "  No changes"
     else
