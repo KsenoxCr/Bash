@@ -1,0 +1,31 @@
+name: Multi-Cloud Mirror
+
+on:
+  push:
+    branches: [ "**" ]
+  delete:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Mirror to Remotes
+        run: |
+          REPO_NAME="${{ github.event.repository.name }}"
+
+          GL_URL="https://${{ secrets.GL_USERNAME }}:${{ secrets.GL_TOKEN }}@gitlab.com/${{ secrets.GL_USERNAME }}/${REPO_NAME}.git"
+          git remote add gitlab "$GL_URL"
+
+          CB_URL="https://${{ secrets.CB_USERNAME }}:${{ secrets.CB_TOKEN }}@codeberg.org/${{ secrets.CB_USERNAME }}/${REPO_NAME}.git"
+          git remote add codeberg "$CB_URL"
+
+          echo "🚀 Pushing to GitLab..."
+          git push gitlab --prune "+refs/remotes/origin/*:refs/heads/*" "+refs/tags/*:refs/tags/*"
+
+          echo "🚀 Pushing to Codeberg..."
+          git push codeberg --prune "+refs/remotes/origin/*:refs/heads/*" "+refs/tags/*:refs/tags/*"

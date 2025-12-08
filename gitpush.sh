@@ -8,7 +8,7 @@ if [[ $? -ne 0 ]]; then
 fi
 
 repo_paths=(
-  # "$HOME/scripting/bash"
+  "$HOME/scripting/bash"
   "$HOME/gods_plan"
   "$HOME/templates"
   "$HOME/.dotfiles"
@@ -23,13 +23,22 @@ for repo in "${repo_paths[@]}"; do
     echo "Processing: $repo"
     cd "$repo" || continue
 
-    git add -A
+    git add -A > /dev/null
  
     if git diff --cached --quiet; then
       echo "  No changes"
     else
-      git commit -m "$commit_msg"
-      git push
+      git commit -m "$commit_msg" > /dev/null
+
+      echo "$repo: Pushing changes..."
+
+      git push &> /dev/null
+
+      if [[ $? -eq 0 ]]; then
+        echo "  Push successful"
+      else
+        echo "  Error: Push failed for $repo" >&2
+      fi
     fi
   else
     echo "Warning: $repo is not a git repository" >&2

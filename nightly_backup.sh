@@ -89,7 +89,7 @@ create_system_backup() {
 
 cleanup_old_backups() {
   local backup_dir="$HOME/system_backups"
-  local max_backups=5
+  local max_backups=2
 
   if [[ ! -d "$backup_dir" ]]; then
     echo "Backup directory does not exist: $backup_dir"
@@ -114,8 +114,8 @@ cleanup_old_backups() {
 }
 
 push_to_repos
-create_system_backup
-cleanup_old_backups
+# create_system_backup
+# cleanup_old_backups
 
 # Schedule shutdown if -s flag was used
 if [[ "$schedule_shutdown" == true ]]; then
